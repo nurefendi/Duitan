@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'home_screen.dart'; // Ganti dengan screen utama aplikasi
+import 'package:duitan/screens/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image.asset("assets/splash_logo.png", width: 200), // Sesuaikan ukuran logo
+        child: Image.asset("assets/splash_logo.png", width: 200), 
       ),
     );
   }

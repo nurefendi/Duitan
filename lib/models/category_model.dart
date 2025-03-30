@@ -1,7 +1,7 @@
 class Category {
   int? id;
   String name;
-  String type; // "income" atau "expense"
+  String type; 
 
   Category({this.id, required this.name, required this.type});
 

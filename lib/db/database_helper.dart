@@ -41,24 +41,9 @@ class DatabaseHelper {
     await db.execute('''
       CREATE TABLE budgets (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          user_id INTEGER NOT NULL,
-          category_id INTEGER NOT NULL,
           amount REAL NOT NULL,
           month TEXT NOT NULL,
-          year TEXT NOT NULL,
-          FOREIGN KEY (user_id) REFERENCES users(id),
-          FOREIGN KEY (category_id) REFERENCES categories(id)
-      )
-    ''');
-    await db.execute('''
-      CREATE TABLE bills (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          user_id INTEGER NOT NULL,
-          name TEXT NOT NULL,
-          amount REAL NOT NULL,
-          due_date DATE NOT NULL,
-          status TEXT CHECK(status IN ('pending', 'paid')) DEFAULT 'pending',
-          FOREIGN KEY (user_id) REFERENCES users(id)
+          year TEXT NOT NULL
       )
     ''');
   }
