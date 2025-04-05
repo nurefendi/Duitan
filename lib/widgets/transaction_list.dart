@@ -2,27 +2,41 @@ import 'package:duitan/providers/transaction_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TransactionListScreen extends StatelessWidget {
-  const TransactionListScreen({super.key});
+class TransactionListWidget extends StatelessWidget {
+  const TransactionListWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Daftar Transaksi")),
-      body: Consumer<TransactionProvider>(
-        builder: (context, provider, child) {
+    return Expanded(
+      child: Consumer<TransactionProvider>(
+        builder: (context, transactionProvider, child) {
+          final transactions = transactionProvider.transactions;
+
+          if (transactions.isEmpty) {
+            return Center(
+              child: Text("Belum ada transaksi."),
+            );
+          }
+
           return ListView.builder(
-            itemCount: provider.transactions.length,
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            itemCount: transactions.length,
             itemBuilder: (context, index) {
-              final transaction = provider.transactions[index];
-              return ListTile(
-                title: Text(transaction.type),
-                subtitle: Text(transaction.amount.toString()),
-                trailing: IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
-                  onPressed: () {
-                    provider.deleteTransaction(transaction.id!);
-                  },
+              final transaction = transactions[index];
+              return Card(
+                child: ListTile(
+                  title: Text(transaction.category),
+                  subtitle: Text(transaction.description),
+                  trailing: Text(
+                    "${transaction.type == "income" ? "+" : "-"} Rp ${transaction.amount.toStringAsFixed(2)}",
+                    style: TextStyle(
+                      color: transaction.type == "income"
+                          ? Colors.green
+                          : Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () => showModalBottomSheet(context: context, builder: (context) => build(context),),
                 ),
               );
             },
